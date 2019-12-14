@@ -1,0 +1,50 @@
+Name: Siddharth Srinivasan
+Junit Lab for Drexel SE310
+
+To run the program:
+1. unizp CashRegister.zip
+2. java -jar CashRegister.jar
+
+Coverage Image:
+--------
+1. JUnitLab3-Coverage.png has the screenshot of line and method coverage
+
+Location of bugs:
+--------
+1. Drawer.java: Lines 51,52
+  -- if random number generated is < 40 doesnot use the Billpack passed by caller
+2. Drawer.java: Lines 120,121
+  -- if random number generated is < 80, then defaults ones to 100, instead of using passed value
+3. CoinPack.java line 59, is adding additional +5 to penny value passed.
+4. added a comment below the buggy lines in this format:
+  - // Found BUG#; Commented out
+
+Extra credit: I
+--------
+0. The state abbreviation passed via the command line is used to determine location of the CashRegister.
+  example: java -jar CashRegister.jar nj
+will use NewJersey State to calculate its taxes.
+  Available state abbreviations to use are: NY, NJ, DE, PA
+
+1. The strategy pattern is used by using the specific state tax implementor class to pass in the constructor
+to CashRegister. There are many constructors given, among which
+ 1. cr = new CashRegister(100,10,10,10,10,10,1000,100,100,10);
+with no state tax passed, defaults to Pennsylvania and this is what is used to construct in case of default behavior.
+ 2. For state abbr passed in command line, following constructor is used:
+  1. cr = new CashRegister(new BillPack(100,10,10,10,10,10),new CoinPack(1000,100,100,10),new NewJerseyTax());
+
+Extra credit: II
+--------
+1. CashRegister.java is modified to return appropriate exception message, instead of generic "Sorry, purchase failed"
+2. Then in Runner.java, the IllegalStateException is caught and handled for different messages
+3. when tenedered cash is less than purchase items price, the program prompts the user
+to enter a set of bills and coins to add, such that the items selected could be purchased.
+  example: user is prompted to give more bills as a comma separated 1s,5s,10s, 20s, 50s, and 100s
+[1,0,0,0,2,1] would mean user gave the following:
+1x1s, 0x5s, 0x10s, 0x20s, 2x50s, 1x100s bills
+  example: user is prompted to give more coins as a comma separated 1s,5s,10s,25s
+[2,3,4,5] means 2x1s, 3x5s, 4x10s, 5x25s coins
+4. The program prompts until user has given back enough cash to cover the total price of items he/she is purchasing.
+
+
+
